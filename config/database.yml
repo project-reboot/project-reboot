@@ -1,0 +1,15 @@
+common: &common
+  adapter: postgresql
+  host: /tmp
+  username: reboot
+  password:
+  encoding: utf8
+  min_messages: WARNING
+
+development:
+  <<: *common
+  database: reboot_dev
+
+test: &test
+  <<: *common
+  database: reboot_test

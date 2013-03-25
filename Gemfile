@@ -22,10 +22,10 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
-group :test do  
+group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem 'capybara-webkit'
+  # gem 'capybara-webkit'
   gem 'factory_girl_rails'
 end
 
@@ -36,3 +36,4 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-rails'
 end
+

@@ -13,6 +13,9 @@ gem 'unicorn', platforms: :ruby
 # Controller & View
 gem 'haml-rails'
 
+# Location services
+gem 'geocoder'
+
 group :development do
   gem 'thin'
 end

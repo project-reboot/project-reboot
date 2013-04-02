@@ -5,27 +5,44 @@ function initialize() {
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
+
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
   // Try HTML5 geolocation
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
-                                       position.coords.longitude);
+    console.log("got here inside geolocation");
+    navigator.geolocation.getCurrentPosition(
+      // show location function
+      function(position) {
+        console.log("getting current position");
+        var pos = new google.maps.LatLng(position.coords.latitude,
+                                         position.coords.longitude);
 
-      var marker = new google.maps.Marker({
-        position: pos,
-        map: map,
-        animation: google.maps.Animation.DROP,
-        title: 'Hello World!'
-      });
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          animation: google.maps.Animation.DROP,
+          title: 'Hello World!'
+        });
 
-      map.setCenter(pos);
-    }, function() {
-      handleNoGeolocation(true);
+        map.setCenter(pos);
+      },
+
+      // User doesn't accept geolocation, locate by ip address instead
+      function() {
+        $.ajax({
+          url: '/locate',
+          dataType: 'json'
+        })
+        .done(function(data){
+          console.log(data);
+        })
+        .error(function(){
+          handleNoGeolocation(true);
+        });
     });
-  } 
+  }
   else {
     // Browser doesn't support Geolocation
     handleNoGeolocation(false);
@@ -35,7 +52,8 @@ function initialize() {
 function handleNoGeolocation(errorFlag) {
   if (errorFlag) {
     var content = 'Error: The Geolocation service failed.';
-  } else {
+  }
+  else {
     var content = 'Error: Your browser doesn\'t support geolocation.';
   }
 

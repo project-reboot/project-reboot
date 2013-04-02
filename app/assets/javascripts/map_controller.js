@@ -52,6 +52,7 @@ function initialize() {
           }
         })
         .error(function(){
+          // if ip address lookup failed, handle error
           handleNoGeolocation(true);
         });
     });
@@ -84,8 +85,9 @@ function handleNoGeolocation(errorFlag) {
 function loadScript() {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBI8zvOZE_SUtXjyMgXTdZk-gecQ24jJWY&sensor=false&' +
-      'callback=initialize';
+  script.src = 'https://maps.googleapis.com/maps/api/js' +
+               '?key=AIzaSyBI8zvOZE_SUtXjyMgXTdZk-gecQ24jJWY&sensor=false' +
+               '&callback=initialize';
   document.body.appendChild(script);
 }
 

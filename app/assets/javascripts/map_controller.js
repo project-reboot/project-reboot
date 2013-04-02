@@ -21,7 +21,7 @@ function initialize() {
           position: pos,
           map: map,
           animation: google.maps.Animation.DROP,
-          title: 'Hello World!'
+          title: 'Your approximate location'
         });
 
         map.setCenter(pos);
@@ -45,7 +45,7 @@ function initialize() {
               position: pos,
               map: map,
               animation: google.maps.Animation.DROP,
-              title: 'Hello World!'
+              title: 'Your approximate location'
             });
 
             map.setCenter(pos);

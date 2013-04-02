@@ -6,14 +6,12 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
   // Try HTML5 geolocation
   if (navigator.geolocation) {
-    console.log("got here inside geolocation");
     navigator.geolocation.getCurrentPosition(
-      // show location function
+      // User has accepted geolocation, find location, and show on map
       function(position) {
         console.log("getting current position");
         var pos = new google.maps.LatLng(position.coords.latitude,
@@ -29,14 +27,29 @@ function initialize() {
         map.setCenter(pos);
       },
 
-      // User doesn't accept geolocation, locate by ip address instead
+      // User has refused geolocation, locate by ip address instead
       function() {
         $.ajax({
           url: '/locate',
           dataType: 'json'
         })
-        .done(function(data){
-          console.log(data);
+        .done(function(geocoderResults){
+          locationData = geocoderResults[0].data;
+          // if we have a location
+          if(locationData) {
+            latitude = locationData.latitude;
+            longitude = locationData.longitude;
+
+            var pos = new google.maps.LatLng(latitude, longitude);
+            var marker = new google.maps.Marker({
+              position: pos,
+              map: map,
+              animation: google.maps.Animation.DROP,
+              title: 'Hello World!'
+            });
+
+            map.setCenter(pos);
+          }
         })
         .error(function(){
           handleNoGeolocation(true);

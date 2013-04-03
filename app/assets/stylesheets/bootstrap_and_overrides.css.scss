@@ -2,6 +2,12 @@
 body { padding-top: 60px; }
 @import "bootstrap-responsive";
 
+#header {
+  position: fixed;
+  top: 0px;
+  width: 100%
+}
+
 #footer { 
   position: fixed;
   bottom: 0px;

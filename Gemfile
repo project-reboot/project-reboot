@@ -13,6 +13,9 @@ gem 'unicorn', platforms: :ruby
 # Controller & View
 gem 'haml-rails'
 
+# Location services
+gem 'geocoder'
+
 group :development do
   gem 'thin'
 end
@@ -22,7 +25,7 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
-group :test do  
+group :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   # gem 'capybara-webkit'
@@ -36,3 +39,4 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-rails'
 end
+

@@ -8,10 +8,11 @@
     = csrf_meta_tags
 
   %body
-    #header
-      Bootstrap navbar here
+    = render :partial => 'layouts/header'
 
     #container
       = yield
+
+    = render :partial => 'layouts/footer'  
 
     #footer

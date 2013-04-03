@@ -1,0 +1,24 @@
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+#header {
+  position: fixed;
+  top: 0px;
+  width: 100%
+}
+
+#footer { 
+  position: fixed;
+  bottom: 0px;
+  height: 25px;
+  width: 100%;
+}
+
+body {
+  position:relative;
+  top: 40px;
+}
+
+#map-canvas img {
+  max-width: none;
+}

@@ -81,7 +81,7 @@ var GoogleMapsController = {
 };
 
 // asynchronously load the google map
-function loadGmapsScript(){
+function loadGoogleMapsScript(){
   var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = 'https://maps.googleapis.com/maps/api/js' +

@@ -1,11 +1,6 @@
 var GoogleMapsController = {
   initialize: function() {
-    var mapOptions = {
-      zoom: 14,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    GoogleMapsController.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    this.createMap();
 
     // Try HTML5 geolocation
     if (navigator.geolocation) {
@@ -77,6 +72,15 @@ var GoogleMapsController = {
 
     var infowindow = new google.maps.InfoWindow(options);
     GoogleMapsController.map.setCenter(options.position);
+  },
+
+  createMap: function(){
+    var mapOptions = {
+      zoom: 14,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    GoogleMapsController.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   }
 };
 

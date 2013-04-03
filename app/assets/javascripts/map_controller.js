@@ -82,10 +82,11 @@ var GoogleMapsController = {
 
 // asynchronously load the google map
 function loadGoogleMapsScript(){
+  var developerKey = 'AIzaSyBI8zvOZE_SUtXjyMgXTdZk-gecQ24jJWY';
   var script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = 'https://maps.googleapis.com/maps/api/js' +
-               '?key=AIzaSyBI8zvOZE_SUtXjyMgXTdZk-gecQ24jJWY&sensor=false' +
+               '?key=' + developerKey + '&sensor=false' +
                '&callback=drawMap';
   window.drawMap = function(){
     GoogleMapsController.initialize();

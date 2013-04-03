@@ -16,6 +16,8 @@ gem 'haml-rails'
 # Location services
 gem 'geocoder'
 
+# user authentication
+gem 'devise'
 group :development do
   gem 'thin'
 end

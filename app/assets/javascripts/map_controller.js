@@ -1,7 +1,37 @@
 var GoogleMapsController = {
   initialize: function() {
     this.createMap();
+    this.findUserLocation();
+  },
 
+  handleNoGeolocation: function(errorFlag) {
+    if (errorFlag) {
+      var content = 'Error: The Geolocation service failed.';
+    }
+    else {
+      var content = 'Error: Your browser doesn\'t support geolocation.';
+    }
+
+    var options = {
+      map: GoogleMapsController.map,
+      position: new google.maps.LatLng(60, 105),
+      content: content
+    };
+
+    var infowindow = new google.maps.InfoWindow(options);
+    GoogleMapsController.map.setCenter(options.position);
+  },
+
+  createMap: function(){
+    var mapOptions = {
+      zoom: 14,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+    GoogleMapsController.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  },
+
+  findUserLocation: function(){
     // Try HTML5 geolocation
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -54,33 +84,6 @@ var GoogleMapsController = {
       // Browser doesn't support Geolocation
       GoogleMapsController.handleNoGeolocation(false);
     }
-  },
-
-  handleNoGeolocation: function(errorFlag) {
-    if (errorFlag) {
-      var content = 'Error: The Geolocation service failed.';
-    }
-    else {
-      var content = 'Error: Your browser doesn\'t support geolocation.';
-    }
-
-    var options = {
-      map: GoogleMapsController.map,
-      position: new google.maps.LatLng(60, 105),
-      content: content
-    };
-
-    var infowindow = new google.maps.InfoWindow(options);
-    GoogleMapsController.map.setCenter(options.position);
-  },
-
-  createMap: function(){
-    var mapOptions = {
-      zoom: 14,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
-
-    GoogleMapsController.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
   }
 };
 

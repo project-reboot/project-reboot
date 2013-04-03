@@ -25,7 +25,7 @@ end
 group :test do  
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem 'capybara-webkit'
+  # gem 'capybara-webkit'
   gem 'factory_girl_rails'
 end
 

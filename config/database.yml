@@ -1,8 +1,6 @@
 common: &common
   adapter: postgresql
   host: /tmp
-  username: reboot
-  password:
   encoding: utf8
   min_messages: WARNING
 

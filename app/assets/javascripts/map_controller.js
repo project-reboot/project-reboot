@@ -1,4 +1,19 @@
 var GoogleMapsController = {
+  // asynchronously load the google map script tags
+  loadScript: function(){
+    var developerKey = 'AIzaSyBI8zvOZE_SUtXjyMgXTdZk-gecQ24jJWY';
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js' +
+                 '?key=' + developerKey + '&sensor=false' +
+                 '&callback=drawMap';
+    // google maps callback must be defined globally
+    window.drawMap = function(){
+      GoogleMapsController.initialize();
+    },
+    document.body.appendChild(script);
+  },
+
   initialize: function() {
     this.createMap();
     this.findUserLocation();
@@ -87,20 +102,6 @@ var GoogleMapsController = {
   }
 };
 
-// asynchronously load the google map
-function loadGoogleMapsScript(){
-  var developerKey = 'AIzaSyBI8zvOZE_SUtXjyMgXTdZk-gecQ24jJWY';
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js' +
-               '?key=' + developerKey + '&sensor=false' +
-               '&callback=drawMap';
-  window.drawMap = function(){
-    GoogleMapsController.initialize();
-  },
-  document.body.appendChild(script);
-}
-
 $(function(){
-  loadGoogleMapsScript();
+  GoogleMapsController.loadScript();
 });

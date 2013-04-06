@@ -4,7 +4,8 @@
 #header {
   position: fixed;
   top: 0px;
-  width: 100%
+  width: 100%;
+  z-index: 1;
 }
 
 #footer { 
@@ -21,4 +22,58 @@ body {
 
 #map-canvas img {
   max-width: none;
+}
+
+#information {
+  width: 400px;
+  height: 700px;
+  background-color: #DDD;
+  position: relative;
+  display: inline-block;
+  float: left;
+}
+
+#search {
+  position: relative;
+  top: 10px;
+  margin: 0 auto;
+  width: 380px;
+  height: 90px;
+  border-radius: 5px;
+}
+
+#search form {
+  margin: 10px 0px 0px 20px;
+}
+
+.btn-group {
+  margin-left: 20px;
+}
+
+#profile {
+  position:relative;
+  top: 10px;
+  margin: 0 auto;
+  width: 380px;
+  height: 75%;
+  border-radius: 5px;
+  background-color: #BBB;
+}
+
+#profile img {
+  margin: 10px 0px 0px 10px;
+  float: left;
+}
+
+#profile p {
+  float: left;
+  margin: 10px;
+  font-size: 20px;
+}
+
+button.btn-success {
+  position: absolute;
+  bottom: 10px;
+  left: 45px;
+  width: 300px;
 }

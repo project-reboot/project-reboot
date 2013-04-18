@@ -71,19 +71,19 @@ var GoogleMapsController = {
   },
 
   onGeolocationFailure: function(error) {
-    var promise;
+    var deferred;
 
-    promise = $.ajax({
+    deferred = $.ajax({
       url: '/api/locate',
       dataType: 'json'
     });
 
-    promise.done(function(geocoderResults) {
+    deferred.done(function(geocoderResults) {
       GoogleMapsController.centerUserMap(geocoderResults.data.latitude,
                                          geocoderResults.data.longitude)
     });
 
-    promise.fail(GoogleMapsController.handleNoGeolocation);
+    deferred.fail(GoogleMapsController.handleNoGeolocation);
   }
 };
 

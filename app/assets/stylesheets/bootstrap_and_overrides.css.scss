@@ -24,7 +24,7 @@ body {
   max-width: none;
 }
 
-#information {
+#sidebar-left {
   width: 400px;
   height: 700px;
   background-color: #DDD;
@@ -33,7 +33,7 @@ body {
   float: left;
 }
 
-#search {
+#sidebar-search {
   position: relative;
   top: 10px;
   margin: 0 auto;
@@ -42,7 +42,7 @@ body {
   border-radius: 5px;
 }
 
-#search form {
+#sidebar-search form {
   margin: 10px 0px 0px 20px;
 }
 

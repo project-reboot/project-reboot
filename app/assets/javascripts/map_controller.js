@@ -45,8 +45,8 @@ var GoogleMapsController = {
   },
 
   setDefaultLocation: function() {
-    navigator.geolocation.getCurrentPosition(GoogleMapsController.onGeolocationSuccess(),
-                                             GoogleMapsController.onGeolocationFailure());
+    navigator.geolocation.getCurrentPosition(GoogleMapsController.onGeolocationSuccess,
+                                             GoogleMapsController.onGeolocationFailure);
   },
 
   handleNoGeolocation: function(errorFlag) {
@@ -78,9 +78,12 @@ var GoogleMapsController = {
       dataType: 'json'
     });
 
-    promise.done(GoogleMapsController.centerUserMap(geocoderResults.data.latitude,
-                                                    geocoderResults.data.longitude));
-    promise.fail(GoogleMapsController.handleNoGeolocation());
+    promise.done(function(geocoderResults) {
+      GoogleMapsController.centerUserMap(geocoderResults.data.latitude,
+                                         geocoderResults.data.longitude)
+    });
+
+    promise.fail(GoogleMapsController.handleNoGeolocation);
   }
 };
 

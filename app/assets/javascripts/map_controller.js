@@ -43,7 +43,7 @@ var GoogleMapsController = {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    GoogleMapsController.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    GoogleMapsController.map = new google.maps.Map(document.getElementById('map-container'), mapOptions);
   },
 
   findUserLocation: function(){

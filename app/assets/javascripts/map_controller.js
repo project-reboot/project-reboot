@@ -1,44 +1,28 @@
 var GoogleMapsController = {
   // asynchronously load the google map script tags
-  loadScript: function(){
+  loadScript: function() {
     var developerKey = 'AIzaSyBI8zvOZE_SUtXjyMgXTdZk-gecQ24jJWY';
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = 'https://maps.googleapis.com/maps/api/js' +
                  '?key=' + developerKey + '&sensor=false' +
-                 '&callback=drawMap';
+                 '&callback=initializeMap';
     // google maps callback must be defined globally
-    window.drawMap = function(){
+    window.initializeMap = function() {
       GoogleMapsController.initialize();
-    },
+    };
     document.body.appendChild(script);
   },
 
   initialize: function() {
-    this.createMap();
-    this.findUserLocation();
+    this.renderMap();
+    this.setDefaultLocation();
   },
 
-  handleNoGeolocation: function(errorFlag) {
-    if (errorFlag) {
-      var content = 'Error: The Geolocation service failed.';
-    }
-    else {
-      var content = 'Error: Your browser doesn\'t support geolocation.';
-    }
+  renderMap: function() {
+    var mapOption;
 
-    var options = {
-      map: GoogleMapsController.map,
-      position: new google.maps.LatLng(60, 105),
-      content: content
-    };
-
-    var infowindow = new google.maps.InfoWindow(options);
-    GoogleMapsController.map.setCenter(options.position);
-  },
-
-  createMap: function(){
-    var mapOptions = {
+    mapOptions = {
       zoom: 14,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -46,59 +30,57 @@ var GoogleMapsController = {
     GoogleMapsController.map = new google.maps.Map(document.getElementById('map-container'), mapOptions);
   },
 
-  findUserLocation: function(){
-    // Try HTML5 geolocation
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        // User has accepted geolocation, find location, and show on map
-        function(position) {
-          var pos = new google.maps.LatLng(position.coords.latitude,
-                                           position.coords.longitude);
+  centerUserMap: function(latitude, longitude) {
+    var position, marker;
 
-          var marker = new google.maps.Marker({
-            position: pos,
-            map: GoogleMapsController.map,
-            animation: google.maps.Animation.DROP,
-            title: 'Your approximate location'
-          });
+    position = new google.maps.LatLng(latitude, longitude);
+    GoogleMapsController.map.setCenter(position);
 
-          GoogleMapsController.map.setCenter(pos);
-        },
+    marker = new google.maps.Marker({
+      position: position,
+      map: GoogleMapsController.map,
+      animation: google.maps.Animation.DROP,
+      title: 'Your approximate location'
+    });
+  },
 
-        // User has refused geolocation, locate by ip address instead
-        function() {
-          $.ajax({
-            url: '/locate',
-            dataType: 'json'
-          })
-          .done(function(geocoderResults){
-            locationData = geocoderResults[0].data;
-            // if we have a location
-            if(locationData) {
-              latitude = locationData.latitude;
-              longitude = locationData.longitude;
+  setDefaultLocation: function() {
+    navigator.geolocation.getCurrentPosition(GoogleMapsController.onGeolocationSuccess(),
+                                             GoogleMapsController.onGeolocationFailure());
+  },
 
-              var pos = new google.maps.LatLng(latitude, longitude);
-              var marker = new google.maps.Marker({
-                position: pos,
-                map: GoogleMapsController.map,
-                animation: google.maps.Animation.DROP,
-                title: 'Your approximate location'
-              });
+  handleNoGeolocation: function(errorFlag) {
+    // UCSF coordinates
+    var latitude, longitude;
 
-              GoogleMapsController.map.setCenter(pos);
-            }
-          })
-          .error(function(){
-            // if ip address lookup failed, handle error
-            handleNoGeolocation(true);
-          });
-      });
-    }
-    else {
-      // Browser doesn't support Geolocation
-      GoogleMapsController.handleNoGeolocation(false);
-    }
+    latitude = 37.784889221;
+    longitude = -122.438926697;
+
+    options = {
+      map: GoogleMapsController.map,
+      position: new google.maps.LatLng(latitude, longitude),
+      content: content
+    };
+
+    infoWindow = new google.maps.InfoWindow(options);
+    GoogleMapsController.map.setCenter(options.position);
+  },
+
+  onGeolocationSuccess: function(pos) {
+    GoogleMapsController.centerUserMap(pos.coords.latitude, pos.coords.longitude);
+  },
+
+  onGeolocationFailure: function(error) {
+    var promise;
+
+    promise = $.ajax({
+      url: '/api/locate',
+      dataType: 'json'
+    });
+
+    promise.done(GoogleMapsController.centerUserMap(geocoderResults.data.latitude,
+                                                    geocoderResults.data.longitude));
+    promise.fail(GoogleMapsController.handleNoGeolocation());
   }
 };
 

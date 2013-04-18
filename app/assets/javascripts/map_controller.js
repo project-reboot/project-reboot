@@ -51,19 +51,7 @@ var GoogleMapsController = {
 
   handleNoGeolocation: function(errorFlag) {
     // UCSF coordinates
-    var latitude, longitude;
-
-    latitude = 37.784889221;
-    longitude = -122.438926697;
-
-    options = {
-      map: GoogleMapsController.map,
-      position: new google.maps.LatLng(latitude, longitude),
-      content: content
-    };
-
-    infoWindow = new google.maps.InfoWindow(options);
-    GoogleMapsController.map.setCenter(options.position);
+    GoogleMapsController.centerUserMap(37.784889221, -122.438926697);
   },
 
   onGeolocationSuccess: function(pos) {

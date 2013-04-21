@@ -13,5 +13,8 @@
     = f.label :password_confirmation
     %br/
     = f.password_field :password_confirmation
+  %div
+    = f.check_box :cpr
+    = f.label :cpr, "I know CPR!"
   %div= f.submit "Sign up"
 = render "devise/shared/links"

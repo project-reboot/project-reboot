@@ -26,9 +26,10 @@ body {
 
 #sidebar-left {
   width: 400px;
-  height: 700px;
+  top: 0px;
+  bottom: 0px;
   background-color: #DDD;
-  position: relative;
+  position: absolute;
   display: inline-block;
   float: left;
 }
@@ -55,9 +56,10 @@ body {
   top: 10px;
   margin: 0 auto;
   width: 380px;
-  height: 75%;
+  height: 60%;
   border-radius: 5px;
   background-color: #BBB;
+  overflow: auto;
 }
 
 #profile img {
@@ -73,7 +75,7 @@ body {
 
 button.btn-success {
   position: absolute;
-  bottom: 10px;
+  bottom: 100px;
   left: 45px;
   width: 300px;
 }

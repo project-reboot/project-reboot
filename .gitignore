@@ -13,3 +13,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# Ignore miscellaneous system and editor files
+.DS_Store
+.sass-cache
+doc/
+*.swp
+*~
+.project

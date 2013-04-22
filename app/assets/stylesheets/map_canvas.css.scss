@@ -2,7 +2,11 @@ html { height: 100% }
 
 body { height: 100%; margin: 0; padding: 0 }
 
-#map-container {
-  height: 700px;
+#map-container{
+  position: absolute;
+  left: 400px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
 }
 

@@ -25,6 +25,7 @@ end
 group :development, :test do
   gem 'faker'
   gem 'rspec-rails'
+  gem 'zeus'
 end
 
 group :test do

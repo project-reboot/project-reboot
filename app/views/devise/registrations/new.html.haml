@@ -14,7 +14,7 @@
     %br/
     = f.password_field :password_confirmation
   %div
-    = f.check_box :cpr
-    = f.label :cpr, "I know CPR!"
+    = f.check_box :knows_cpr
+    = f.label :knows_cpr, "I know CPR!"
   %div= f.submit "Sign up"
 = render "devise/shared/links"

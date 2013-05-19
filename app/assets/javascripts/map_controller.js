@@ -14,12 +14,20 @@ var GoogleMapsController = {
     document.body.appendChild(script);
   },
 
-  initialize: function() {
-    this.renderMap();
-    this.setDefaultLocation();
+  getMapContainer: function() {
+    return document.getElementById('map-container');
   },
 
-  renderMap: function() {
+  initialize: function() {
+    var mapContainer = GoogleMapsController.getMapContainer();
+
+    if (mapContainer) {
+      this.renderMap(mapContainer);
+      this.setDefaultLocation();
+    }
+  },
+
+  renderMap: function(mapContainer) {
     var mapOption;
 
     mapOptions = {
@@ -27,7 +35,7 @@ var GoogleMapsController = {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    GoogleMapsController.map = new google.maps.Map(document.getElementById('map-container'), mapOptions);
+    GoogleMapsController.map = new google.maps.Map(mapContainer, mapOptions);
   },
 
   centerUserMap: function(latitude, longitude) {
@@ -68,7 +76,7 @@ var GoogleMapsController = {
 
     deferred.done(function(geocoderResults) {
       GoogleMapsController.centerUserMap(geocoderResults.data.latitude,
-                                         geocoderResults.data.longitude)
+                                         geocoderResults.data.longitude);
     });
 
     deferred.fail(GoogleMapsController.handleNoGeolocation);

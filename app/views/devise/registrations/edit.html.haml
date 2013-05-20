@@ -7,9 +7,6 @@
       %div
         Currently waiting confirmation for: #{resource.unconfirmed_email}
   .control-group
-    = f.check_box :knows_cpr
-    = f.label :knows_cpr, "I know CPR!"
-
     = f.label :email
     = f.email_field :email, :autofocus => true
 
@@ -21,6 +18,18 @@
 
     = f.label :current_password
     = f.password_field :current_password
+    %br/
+    = f.check_box :knows_cpr
+    = f.label :knows_cpr, "I know CPR!"
+
+    = f.label :street
+    = f.text_field :street
+
+    = f.label :city
+    = f.text_field :city
+
+    = f.label :state
+    = f.text_field :state
   .control-group
     = f.submit "Update"
 

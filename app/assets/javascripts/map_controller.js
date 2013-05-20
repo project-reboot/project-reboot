@@ -39,18 +39,27 @@ var GoogleMapsController = {
     GoogleMapsController.map = new google.maps.Map(this.mapContainer, mapOptions);
   },
 
-  centerUserMap: function(latitude, longitude) {
+  renderMarker: function(latitude, longitude, title) {
     var position, marker;
 
     position = new google.maps.LatLng(latitude, longitude);
-    GoogleMapsController.map.setCenter(position);
 
     marker = new google.maps.Marker({
       position: position,
       map: GoogleMapsController.map,
       animation: google.maps.Animation.DROP,
-      title: 'Your approximate location'
+      title: title
     });
+  },
+
+  centerUserMap: function(latitude, longitude) {
+    var position, marker;
+
+    position = new google.maps.LatLng(latitude, longitude);
+    title = 'Your approximate location';
+
+    GoogleMapsController.map.setCenter(position);
+    GoogleMapsController.renderMarker(latitude, longitude, title);
   },
 
   setDefaultLocation: function() {
@@ -64,7 +73,12 @@ var GoogleMapsController = {
   },
 
   onGeolocationSuccess: function(pos) {
-    GoogleMapsController.centerUserMap(pos.coords.latitude, pos.coords.longitude);
+    var latitude, longitude;
+    latitude = pos.coords.latitude;
+    longitude = pos.coords.longitude;
+
+    GoogleMapsController.centerUserMap(latitude, longitude);
+    GoogleMapsController.getNearByUsers(latitude, longitude);
   },
 
   onGeolocationFailure: function(error) {
@@ -81,6 +95,29 @@ var GoogleMapsController = {
     });
 
     deferred.fail(GoogleMapsController.handleNoGeolocation);
+  },
+
+  getNearByUsers: function(latitude, longitude) {
+    var deferred;
+
+    deferred = $.ajax({
+      url: '/api/nearby_users',
+      data: { 'coords': [latitude, longitude] },
+      dataType: 'json'
+    });
+
+    deferred.done(function(results) { GoogleMapsController.renderNearByUsers(results); });
+    // TODO: deal with failure
+    deferred.fail(function() { alert('Could not reach server'); });
+  },
+
+  renderNearByUsers: function(users) {
+    var i, length, user;
+
+    for (i = 0, length = users.length; i < length; i++) {
+      user = users[i];
+      GoogleMapsController.renderMarker(user.latitude, user.longitude);
+    }
   }
 };
 

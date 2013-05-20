@@ -1,6 +1,11 @@
 var GoogleMapsController = {
   // asynchronously load the google map script tags
   loadScript: function() {
+    this.mapContainer = this.getMapContainer();
+
+    // proceed only if map container is present
+    if (!this.mapContainer) return;
+
     var developerKey = 'AIzaSyBI8zvOZE_SUtXjyMgXTdZk-gecQ24jJWY';
     var script = document.createElement('script');
     script.type = 'text/javascript';
@@ -14,12 +19,16 @@ var GoogleMapsController = {
     document.body.appendChild(script);
   },
 
+  getMapContainer: function() {
+    return document.getElementById('map-container');
+  },
+
   initialize: function() {
     this.renderMap();
     this.setDefaultLocation();
   },
 
-  renderMap: function() {
+  renderMap: function(mapContainer) {
     var mapOption;
 
     mapOptions = {
@@ -27,7 +36,7 @@ var GoogleMapsController = {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    GoogleMapsController.map = new google.maps.Map(document.getElementById('map-container'), mapOptions);
+    GoogleMapsController.map = new google.maps.Map(this.mapContainer, mapOptions);
   },
 
   centerUserMap: function(latitude, longitude) {
@@ -68,7 +77,7 @@ var GoogleMapsController = {
 
     deferred.done(function(geocoderResults) {
       GoogleMapsController.centerUserMap(geocoderResults.data.latitude,
-                                         geocoderResults.data.longitude)
+                                         geocoderResults.data.longitude);
     });
 
     deferred.fail(GoogleMapsController.handleNoGeolocation);

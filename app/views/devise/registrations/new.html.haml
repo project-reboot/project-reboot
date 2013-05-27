@@ -16,5 +16,17 @@
   %div
     = f.check_box :knows_cpr
     = f.label :knows_cpr, "I know CPR!"
+  %div
+    = f.label :street
+    %br/
+    = f.text_field :street
+    %br/
+    = f.label :city
+    %br/
+    = f.text_field :city
+    %br/
+    = f.label :state
+    %br/
+    = f.text_field :state
   %div= f.submit "Sign up"
 = render "devise/shared/links"

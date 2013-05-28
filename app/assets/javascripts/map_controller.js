@@ -29,7 +29,7 @@ var GoogleMapsController = {
   },
 
   renderMap: function(mapContainer) {
-    var mapOption;
+    var mapOptions;
 
     mapOptions = {
       zoom: 14,

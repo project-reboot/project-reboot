@@ -1,40 +1,62 @@
-%h2
-  Edit #{resource_name.to_s.humanize}
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f|
-  = devise_error_messages!
-  .control-group
+.span8.offset2
+  %h2 Edit #{resource_name.to_s.humanize}
+
+  = form_for(resource, :as => resource_name,
+              :url => registration_path(resource_name),
+              :html => { :method => :put, :class => 'form-horizontal' }) do |f|
+    = devise_error_messages!
     - if devise_mapping.confirmable? && resource.pending_reconfirmation?
       %div
         Currently waiting confirmation for: #{resource.unconfirmed_email}
-  .control-group
-    = f.label :email
-    = f.email_field :email, :autofocus => true
 
-    = f.label :password
-    = f.password_field :password, autocomplete: 'off', placeholder: 'leave blank to keep current password'
+    .control-group
+      = f.label :email, :class => 'control-label'
+      .controls
+        = f.email_field :email, :autofocus => true
 
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
+    .control-group
+      = f.label :password, :class => 'control-label'
+      .controls
+        = f.password_field :password, autocomplete: 'off', placeholder: 'leave blank to keep current password'
 
-    = f.label :current_password
-    = f.password_field :current_password
-    %br/
-    = f.check_box :knows_cpr
-    = f.label :knows_cpr, "I know CPR!"
+    .control-group
+      = f.label :password_confirmation, :class => 'control-label'
+      .controls
+        = f.password_field :password_confirmation
 
-    = f.label :street
-    = f.text_field :street
+    .control-group
+      = f.label :current_password, :class => 'control-label'
+      .controls
+        = f.password_field :current_password
 
-    = f.label :city
-    = f.text_field :city
+    .control-group
+      .controls
+        = f.check_box :knows_cpr
+        = f.label :knows_cpr, "I know CPR!", :class => 'checkbox inline'
 
-    = f.label :state
-    = f.text_field :state
-  .control-group
-    = f.submit "Update"
+    .control-group
+      = f.label :street, :class => 'control-label'
+      .controls
+        = f.text_field :street
 
-%h3
-  Unhappy?
-  = button_to "Cancel my account", registration_path(resource_name), :data => { :confirm => "Are you sure?" }, :method => :delete
+    .control-group
+      = f.label :city, :class => 'control-label'
+      .controls
+        = f.text_field :city
 
-= link_to "Back", :back
+    .control-group
+      = f.label :state, :class => 'control-label'
+      .controls
+        = f.text_field :state
+
+    .control-group
+      .controls
+        = f.submit "Update", :class => 'btn btn-primary'
+
+  %h3
+    Delete Account
+    = button_to "Delete my account", registration_path(resource_name),
+      :data => { :confirm => "Are you sure?" }, :method => :delete,
+      :class => 'btn btn-danger'
+
+  = link_to "Back", :back

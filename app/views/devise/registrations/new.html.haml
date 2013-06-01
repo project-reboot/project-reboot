@@ -1,32 +1,47 @@
-%h2 Sign up
-= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  %div
-    = f.label :email
-    %br/
-    = f.email_field :email, :autofocus => true
-  %div
-    = f.label :password
-    %br/
-    = f.password_field :password
-  %div
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation
-  %div
-    = f.check_box :knows_cpr
-    = f.label :knows_cpr, "I know CPR!"
-  %div
-    = f.label :street
-    %br/
-    = f.text_field :street
-    %br/
-    = f.label :city
-    %br/
-    = f.text_field :city
-    %br/
-    = f.label :state
-    %br/
-    = f.text_field :state
-  %div= f.submit "Sign up"
-= render "devise/shared/links"
+.span8.offset2
+  %h2 Sign up
+  = form_for(resource, :as => resource_name,
+                       :url => registration_path(resource_name),
+                       :html => { :class => 'form-horizontal' }) do |f|
+    = devise_error_messages!
+
+    .control-group
+      = f.label :email, :class => 'control-label'
+      .controls
+        = f.email_field :email, :autofocus => true
+
+    .control-group
+      = f.label :password, :class => 'control-label'
+      .controls
+        = f.password_field :password
+
+    .control-group
+      = f.label :password_confirmation, :class => 'control-label'
+      .controls
+        = f.password_field :password_confirmation
+
+    .control-group
+      .controls
+        = f.check_box :knows_cpr
+        = f.label :knows_cpr, "I know CPR!", :class => 'checkbox inline'
+
+    .control-group
+      = f.label :street, :class => 'control-label'
+      .controls
+        = f.text_field :street
+
+    .control-group
+      = f.label :city, :class => 'control-label'
+      .controls
+        = f.text_field :city
+
+    .control-group
+      = f.label :state, :class => 'control-label'
+      .controls
+        = f.text_field :state
+
+    .control-group
+      .controls
+        = f.submit "Sign up", :class => 'btn btn-primary'
+
+  = render "devise/shared/links"
